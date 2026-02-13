@@ -370,7 +370,7 @@ CREATE POLICY "Anyone can create testimonials" ON public.testimonials
 INSERT INTO public.testimonials (name, country, treatment, quote, rating) VALUES
   ('Sarah M.', 'United States', 'Dental Implants', 'I saved over $12,000 on dental implants in Turkey. The hospital was more modern than anything back home, and the care was exceptional.', 5),
   ('James L.', 'United Kingdom', 'Hip Replacement', 'After 18 months on the NHS waiting list, I had my hip replaced in India within 2 weeks. Best decision I ever made.', 5),
-  ('Maria K.', 'Canada', 'IVF Treatment', 'We went through 2 failed IVF cycles at home. Our third attempt in Spain was successful — and cost a fraction of what we'd paid before.', 5);
+  ('Maria K.', 'Canada', 'IVF Treatment', 'We went through 2 failed IVF cycles at home. Our third attempt in Spain was successful — and cost a fraction of what we had paid before.', 5);
 
 
 -- Migration: 20260210051000_add_email_to_testimonials.sql
@@ -409,3 +409,31 @@ VALUES
   (gen_random_uuid(), (SELECT id FROM public.treatment_categories WHERE slug='fertility' LIMIT 1), 'IVF Cycle', 'IVF description...', true),
   (gen_random_uuid(), (SELECT id FROM public.treatment_categories WHERE slug='neurology' LIMIT 1), 'Deep Brain Stimulation', 'DBS description...', true)
 ON CONFLICT DO NOTHING;
+
+-- Allow patients to view leads matching their email via profiles
+CREATE POLICY "Patients can view leads by email"
+ON public.leads
+FOR SELECT
+USING (
+  email IN (
+    SELECT p.email FROM public.profiles p WHERE p.user_id = auth.uid()
+  )
+);
+
+-- Allow patients to withdraw (update status) their own leads
+CREATE POLICY "Patients can update own leads"
+ON public.leads
+FOR UPDATE
+USING (
+  email IN (
+    SELECT p.email FROM public.profiles p WHERE p.user_id = auth.uid()
+  )
+)
+WITH CHECK (
+  email IN (
+    SELECT p.email FROM public.profiles p WHERE p.user_id = auth.uid()
+  )
+);
+
+ALTER TABLE public.leads
+  ADD COLUMN IF NOT EXISTS mobile TEXT;

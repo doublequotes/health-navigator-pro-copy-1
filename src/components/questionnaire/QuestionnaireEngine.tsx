@@ -22,12 +22,17 @@ const QuestionnaireEngine = () => {
   const progress = ((history.length) / questions.length) * 100;
 
   const currentAnswer = answers[currentId];
+  const allowedCountries = ["india", "thailand", "hong_kong", "no_preference"];
 
   const canProceed = () => {
     if (!currentQuestion.required) return true;
     if (!currentAnswer) return false;
     if (currentQuestion.type === "email") {
       return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(currentAnswer as string);
+    }
+    if (currentQuestion.type === "mobile") {
+      console.log("Validating mobile number:", currentAnswer);
+      return /^\+[1-9]\d{1,14}$/.test(currentAnswer as string); // Basic international phone number validation
     }
     if (currentQuestion.type === "multi") {
       return (currentAnswer as string[])?.length > 0;
@@ -43,6 +48,7 @@ const QuestionnaireEngine = () => {
         const destinations = answers.destination_preference;
         const { error } = await supabase.from("leads").insert({
           email: answers.email as string,
+          mobile: answers.mobile as string,
           treatment_category: (answers.treatment_category as string) || "other",
           urgency: (answers.urgency as string) || null,
           previous_diagnosis: (answers.previous_diagnosis as string) || null,
@@ -170,6 +176,7 @@ const QuestionnaireEngine = () => {
                     return (
                       <button
                         key={option.value}
+                        disabled={allowedCountries.includes(option.value ?? "") === false && currentId === "destination_preference"}
                         onClick={() => handleMultiSelect(option.value)}
                         className={`w-full text-left p-4 rounded-xl border-2 transition-all duration-200 ${
                           selected
@@ -195,6 +202,18 @@ const QuestionnaireEngine = () => {
                   onChange={(e) => handleTextChange(e.target.value)}
                   placeholder={currentQuestion.placeholder}
                   className="min-h-[120px] text-base border-2 focus:border-primary"
+                />
+              )}
+
+              {/* mobile number */}
+              {currentQuestion.type === "mobile" && (
+                <Input
+                  type="tel"
+                  pattern="^\+[1-9]\d{1,14}$"
+                  value={(currentAnswer as string) || ""}
+                  onChange={(e) => handleTextChange(e.target.value)}
+                  placeholder={currentQuestion.placeholder}
+                  className="text-base h-14 border-2 focus:border-primary"
                 />
               )}
 

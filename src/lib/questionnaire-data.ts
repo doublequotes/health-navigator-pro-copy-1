@@ -8,7 +8,7 @@ export interface Question {
   id: string;
   question: string;
   description?: string;
-  type: "single" | "multi" | "text" | "email";
+  type: "single" | "multi" | "text" | "email" | "mobile";
   options?: QuestionOption[];
   required?: boolean;
   placeholder?: string;
@@ -22,6 +22,7 @@ export const questions: Question[] = [
     type: "single",
     required: true,
     options: [
+      { label: "🏋🏻‍♂️ Physiotherapy", value: "physiotherapy" },
       { label: "☢️ Oncology / Treatement & Surgery", value: "oncology" },
       { label: "🫀 Cardiac / Heart Surgery", value: "cardiac" },
       { label: "🦴 Orthopedics (Joint / Spine)", value: "orthopedics" },
@@ -43,6 +44,7 @@ export const questions: Question[] = [
       { label: "Within 1 month", value: "1_month" },
       { label: "Within 3 months", value: "3_months" },
       { label: "Within 6 months", value: "6_months" },
+      { label: "Within 9 months", value: "9_months" },
       { label: "Just exploring options", value: "exploring" },
     ],
   },
@@ -71,13 +73,13 @@ export const questions: Question[] = [
     description: "Select all regions you'd consider for treatment.",
     type: "multi",
     options: [
-      { label: "🇹🇷 Turkey", value: "turkey" },
       { label: "🇮🇳 India", value: "india" },
       { label: "🇹🇭 Thailand", value: "thailand" },
-      { label: "🇲🇽 Mexico", value: "mexico" },
-      { label: "🇪🇸 Spain", value: "spain" },
-      { label: "🇩🇪 Germany", value: "germany" },
-      { label: "🇰🇷 South Korea", value: "south_korea" },
+      { label: "🇭🇰 Hong Kong", value: "hong_kong" },
+      { label: "🇹🇷 Turkey - (Comming Soon)", value: "turkey" },
+      { label: "🇲🇽 Mexico (Comming Soon)", value: "mexico" },
+      { label: "🇩🇪 Germany (Comming Soon)", value: "germany" },
+      { label: "🇰🇷 South Korea (Comming Soon)", value: "south_korea" },
       { label: "No preference", value: "no_preference" },
     ],
   },
@@ -94,12 +96,20 @@ export const questions: Question[] = [
     ],
   },
   {
+    id: "mobile",
+    question: "Would you like us to contact you via WhatsApp/direct call for faster communication?",
+    description: "We will get in touch with you if anything urgent comes up or if we need more details to find the best options for you.",
+    type: "mobile",
+    required: false,
+    placeholder: "e.g +9715551234567 (Optional) ",
+  },
+  {
     id: "email",
     question: "Where should we send your personalized quotes?",
     description: "We'll match you with accredited hospitals within 24 hours.",
     type: "email",
     required: true,
-    placeholder: "your.email@example.com",
+    placeholder: "personal.email@example.com",
   },
 ];
 

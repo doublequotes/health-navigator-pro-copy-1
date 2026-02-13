@@ -10,6 +10,9 @@ type Category = {
   slug?: string;
   icon?: string | null;
   description?: string | null;
+  bg_color?: string | null;
+  color?: string | null;
+  image_url?: string | null;
 };
 
 type TreatmentItem = {

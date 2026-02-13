@@ -31,7 +31,7 @@ const TestimonialsSection = () => {
       const from = (pageNum - 1) * PAGE_SIZE;
       const to = from + PAGE_SIZE - 1;
 
-      let query: any = supabase.from("testimonials").select("*", { count: 'exact' });
+      let query = supabase.from("testimonials").select("*", { count: 'exact' }) as any;
       if (countryFilter !== 'All') query = query.eq('country', countryFilter);
       if (ratingFilter !== 'All') query = query.gte('rating', ratingFilter as number);
 
@@ -94,7 +94,7 @@ const TestimonialsSection = () => {
         rating: form.rating || 5,
         email: (form as any).email || null,
       };
-      const { error } = await supabase.from("testimonials").insert(payload);
+      const { error } = await (supabase.from("testimonials") as any).insert(payload);
       if (error) throw error;
       setForm({ name: "", country: "", treatment: "", quote: "", rating: 5 });
       // after submit go back to first page and refresh

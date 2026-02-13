@@ -1,5 +1,6 @@
-import { LayoutDashboard, Users, DollarSign } from "lucide-react";
+import { LayoutDashboard, Users, DollarSign, LogOut } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
+import { useAuth } from "@/hooks/useAuth";
 import {
   Sidebar,
   SidebarContent,
@@ -9,7 +10,9 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarFooter,
 } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
 
 const items = [
   { title: "Overview", url: "/hospital", icon: LayoutDashboard },
@@ -18,11 +21,15 @@ const items = [
 ];
 
 export function HospitalSidebar() {
+  const { signOut, user } = useAuth();
+
   return (
-    <Sidebar collapsible="icon">
+    <Sidebar className="border-r border-sidebar-border">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Hospital Portal</SidebarGroupLabel>
+          <SidebarGroupLabel className="font-display text-base px-4 pt-6 pb-2">
+            Hospital Portal
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (
@@ -30,11 +37,11 @@ export function HospitalSidebar() {
                   <SidebarMenuButton asChild>
                     <NavLink
                       to={item.url}
-                      end
-                      className="hover:bg-muted/50"
-                      activeClassName="bg-muted text-primary font-medium"
+                      end={item.url === "/hospital"}
+                      className="flex items-center gap-3 px-4 py-2 rounded-md text-sidebar-foreground hover:bg-sidebar-accent transition-colors"
+                      activeClassName="bg-sidebar-accent text-primary font-medium"
                     >
-                      <item.icon className="mr-2 h-4 w-4" />
+                      <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>
                     </NavLink>
                   </SidebarMenuButton>
@@ -44,6 +51,14 @@ export function HospitalSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
+      <SidebarFooter className="p-4 border-t border-sidebar-border">
+        <p className="text-xs text-muted-foreground truncate mb-2">{user?.email}</p>
+        <Button variant="ghost" size="sm" className="w-full justify-start gap-2" onClick={signOut}>
+          <LogOut className="h-4 w-4" />
+          Sign Out
+        </Button>
+      </SidebarFooter>
     </Sidebar>
   );
 }

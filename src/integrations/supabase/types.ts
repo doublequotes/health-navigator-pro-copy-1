@@ -256,6 +256,7 @@ export type Database = {
           diagnosis_details: string | null
           email: string
           id: string
+          mobile?: string | null
           previous_diagnosis: string | null
           questionnaire_answers: Json | null
           source: string | null
@@ -274,6 +275,7 @@ export type Database = {
           diagnosis_details?: string | null
           email: string
           id?: string
+          mobile?: string | null
           previous_diagnosis?: string | null
           questionnaire_answers?: Json | null
           source?: string | null
@@ -292,6 +294,7 @@ export type Database = {
           diagnosis_details?: string | null
           email?: string
           id?: string
+          mobile?: string | null
           previous_diagnosis?: string | null
           questionnaire_answers?: Json | null
           source?: string | null
@@ -340,28 +343,70 @@ export type Database = {
         }
         Relationships: []
       }
+      testimonials: {
+        Row: {
+          country: string | null
+          created_at: string
+          email: string | null
+          id: string
+          name: string
+          quote: string
+          rating: number
+          treatment: string | null
+        }
+        Insert: {
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          name: string
+          quote: string
+          rating?: number
+          treatment?: string | null
+        }
+        Update: {
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          name?: string
+          quote?: string
+          rating?: number
+          treatment?: string | null
+        }
+        Relationships: []
+      }
       treatment_categories: {
         Row: {
+          bg_color: string | null
+          color: string | null
           created_at: string
           description: string | null
           icon: string | null
           id: string
+          image_url: string | null
           name: string
           slug: string
         }
         Insert: {
+          bg_color?: string | null
+          color?: string | null
           created_at?: string
           description?: string | null
           icon?: string | null
           id?: string
+          image_url?: string | null
           name: string
           slug: string
         }
         Update: {
+          bg_color?: string | null
+          color?: string | null
           created_at?: string
           description?: string | null
           icon?: string | null
           id?: string
+          image_url?: string | null
           name?: string
           slug?: string
         }

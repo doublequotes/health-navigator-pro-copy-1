@@ -43,6 +43,10 @@ const ThankYou = () => {
               <span className="text-primary font-bold">3.</span>
               A dedicated coordinator will help you compare and decide.
             </li>
+            <li className="flex items-start gap-2">
+              <span className="text-primary font-bold">4.</span>
+              In the mean time you can register yourself with this email. See the query details and build your profile
+            </li>
           </ul>
         </div>
 

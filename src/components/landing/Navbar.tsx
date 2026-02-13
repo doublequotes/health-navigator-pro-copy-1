@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 const navLinks = [
-  { label: "How It Works", href: "#how-it-works" },
-  { label: "Treatments", href: "#treatments" },
-  { label: "Savings", href: "#savings" },
-  { label: "Testimonials", href: "#testimonials" },
+  { label: "Home", href: "/" },
+  { label: "How It Works", href: "/how-it-works" },
+  { label: "Treatments", href: "/treatments" },
+  { label: "Savings", href: "/savings" },
+  { label: "Testimonials", href: "/testimonials" },
 ];
 
 const Navbar = () => {
@@ -43,6 +44,9 @@ const Navbar = () => {
         </div>
 
         <div className="hidden md:flex items-center gap-3">
+          <Link to="/auth">
+            <Button variant="outline">Connect</Button>
+          </Link>
           <Link to="/questionnaire">
             <Button className="bg-accent-gradient text-accent-foreground shadow-soft hover:shadow-elevated">
               Get Free Quote
@@ -77,6 +81,9 @@ const Navbar = () => {
               {link.label}
             </a>
           ))}
+          <Link to="/auth" onClick={() => setIsOpen(false)}>
+            <Button variant="outline" className="w-full mt-3">Connect</Button>
+          </Link>
           <Link to="/questionnaire" onClick={() => setIsOpen(false)}>
             <Button className="w-full mt-3 bg-accent-gradient text-accent-foreground">
               Get Free Quote
