@@ -1,18 +1,39 @@
 export interface QuestionOption {
   label: string;
   value: string;
-  nextQuestion?: string; // conditional: jump to specific question
+  nextQuestion?: string;
 }
 
 export interface Question {
   id: string;
   question: string;
   description?: string;
-  type: "single" | "multi" | "text" | "email" | "mobile";
+  type: "single" | "multi" | "text" | "email" | "mobile" | "dropdown" | "personal_details";
   options?: QuestionOption[];
   required?: boolean;
   placeholder?: string;
+  allowFileUpload?: boolean;
 }
+
+export const countryList = [
+  "Afghanistan", "Albania", "Algeria", "Andorra", "Angola", "Argentina", "Armenia", "Australia",
+  "Austria", "Azerbaijan", "Bahrain", "Bangladesh", "Belarus", "Belgium", "Bolivia", "Bosnia and Herzegovina",
+  "Brazil", "Brunei", "Bulgaria", "Cambodia", "Cameroon", "Canada", "Chad", "Chile", "China",
+  "Colombia", "Congo", "Costa Rica", "Croatia", "Cuba", "Cyprus", "Czech Republic", "Denmark",
+  "Dominican Republic", "Ecuador", "Egypt", "El Salvador", "Estonia", "Ethiopia", "Fiji", "Finland",
+  "France", "Georgia", "Germany", "Ghana", "Greece", "Guatemala", "Haiti", "Honduras", "Hong Kong",
+  "Hungary", "Iceland", "India", "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy",
+  "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya", "Kuwait", "Kyrgyzstan", "Laos", "Latvia",
+  "Lebanon", "Libya", "Lithuania", "Luxembourg", "Malaysia", "Maldives", "Malta", "Mexico",
+  "Moldova", "Mongolia", "Montenegro", "Morocco", "Mozambique", "Myanmar", "Nepal", "Netherlands",
+  "New Zealand", "Nicaragua", "Nigeria", "North Macedonia", "Norway", "Oman", "Pakistan", "Palestine",
+  "Panama", "Paraguay", "Peru", "Philippines", "Poland", "Portugal", "Qatar", "Romania", "Russia",
+  "Rwanda", "Saudi Arabia", "Senegal", "Serbia", "Singapore", "Slovakia", "Slovenia", "Somalia",
+  "South Africa", "South Korea", "Spain", "Sri Lanka", "Sudan", "Sweden", "Switzerland", "Syria",
+  "Taiwan", "Tajikistan", "Tanzania", "Thailand", "Tunisia", "Turkey", "Turkmenistan", "UAE",
+  "Uganda", "Ukraine", "United Kingdom", "United States", "Uruguay", "Uzbekistan", "Venezuela",
+  "Vietnam", "Yemen", "Zambia", "Zimbabwe",
+];
 
 export const questions: Question[] = [
   {
@@ -23,7 +44,7 @@ export const questions: Question[] = [
     required: true,
     options: [
       { label: "🏋🏻‍♂️ Physiotherapy", value: "physiotherapy" },
-      { label: "☢️ Oncology / Treatement & Surgery", value: "oncology" },
+      { label: "☢️ Oncology / Treatment & Surgery", value: "oncology" },
       { label: "🫀 Cardiac / Heart Surgery", value: "cardiac" },
       { label: "🦴 Orthopedics (Joint / Spine)", value: "orthopedics" },
       { label: "👁️ Eye Surgery / Ophthalmology", value: "ophthalmology" },
@@ -62,10 +83,27 @@ export const questions: Question[] = [
   {
     id: "diagnosis_details",
     question: "Please describe your diagnosis or condition.",
-    description: "Include any specific details from your doctor's assessment.",
+    description: "Include any specific details from your doctor's assessment. You can also upload a prescription or medical report.",
     type: "text",
     required: true,
     placeholder: "e.g., Torn ACL requiring reconstruction, diagnosed March 2026...",
+    allowFileUpload: true,
+  },
+  {
+    id: "allergies_conditions",
+    question: "Do you have any known allergies or chronic conditions?",
+    description: "Select all that apply.",
+    type: "multi",
+    required: false,
+    options: [
+      { label: "💉 Diabetes", value: "diabetes" },
+      { label: "💊 Hypothyroidism / Hyperthyroidism", value: "thyroidism_issue" },
+      { label: "🩺 Hypertension", value: "hypertension" },
+      { label: "❤️ Heart / Cardiovascular issues", value: "heart_issues" },
+      { label: "🫁 Respiratory / Asthma", value: "respiratory_issue" },
+      { label: "💊 Drug / Medication allergies", value: "drug_allergies" },
+      { label: "🚫 None of the above", value: "none" },
+    ],
   },
   {
     id: "destination_preference",
@@ -76,10 +114,10 @@ export const questions: Question[] = [
       { label: "🇮🇳 India", value: "india" },
       { label: "🇹🇭 Thailand", value: "thailand" },
       { label: "🇭🇰 Hong Kong", value: "hong_kong" },
-      { label: "🇹🇷 Turkey - (Comming Soon)", value: "turkey" },
-      { label: "🇲🇽 Mexico (Comming Soon)", value: "mexico" },
-      { label: "🇩🇪 Germany (Comming Soon)", value: "germany" },
-      { label: "🇰🇷 South Korea (Comming Soon)", value: "south_korea" },
+      { label: "🇹🇷 Turkey (Coming Soon)", value: "turkey" },
+      { label: "🇲🇽 Mexico (Coming Soon)", value: "mexico" },
+      { label: "🇩🇪 Germany (Coming Soon)", value: "germany" },
+      { label: "🇰🇷 South Korea (Coming Soon)", value: "south_korea" },
       { label: "No preference", value: "no_preference" },
     ],
   },
@@ -96,20 +134,61 @@ export const questions: Question[] = [
     ],
   },
   {
-    id: "mobile",
-    question: "Would you like us to contact you via WhatsApp/direct call for faster communication?",
-    description: "We will get in touch with you if anything urgent comes up or if we need more details to find the best options for you.",
-    type: "mobile",
-    required: false,
-    placeholder: "e.g +9715551234567 (Optional) ",
+    id: "passport_country",
+    question: "Do you require a medical visa?",
+    description: "Select the country of your travel document (passport).",
+    type: "dropdown",
+    required: true,
+    placeholder: "Select your passport country",
   },
   {
-    id: "email",
-    question: "Where should we send your personalized quotes?",
-    description: "We'll match you with accredited hospitals within 24 hours.",
-    type: "email",
+    id: "translation_language",
+    question: "Do you need translation services?",
+    description: "Translation between your language and English. Select your preferred language of conversation.",
+    type: "dropdown",
+    required: false,
+    placeholder: "Select your preferred language",
+    options: [
+      { label: "Arabic", value: "arabic" },
+      { label: "Persian", value: "persian" },
+      { label: "Dari / Afghani", value: "afghani" },
+      { label: "Urdu", value: "urdu" },
+      { label: "Nepali", value: "nepali" },
+      { label: "Bengali", value: "bengali" },
+      { label: "Polish", value: "polish" },
+      { label: "Russian", value: "russian" },
+      { label: "Cantonese", value: "cantonese" },
+      { label: "Japanese", value: "japanese" },
+      { label: "Not required (I speak English)", value: "not_required" },
+    ],
+  },
+  {
+    id: "virtual_consultation",
+    question: "Would you like a virtual consultation with the surgeon/doctor before you confirm?",
+    description: "A video call with the treating doctor to discuss your case.",
+    type: "dropdown",
     required: true,
-    placeholder: "personal.email@example.com",
+    placeholder: "Select an option",
+    options: [
+      { label: "Yes, I'd like a virtual consultation", value: "yes" },
+      { label: "Not required", value: "not_required" },
+      { label: "I'll decide later", value: "decide_later" },
+    ],
+  },
+  {
+    id: "mobile",
+    question: "Would you like us to contact you via WhatsApp/direct call?",
+    description: "Enter your number with country code (e.g. +971551234567). We will get in touch for urgent updates.",
+    type: "mobile",
+    required: false,
+    placeholder: "+971551234567 (Optional)",
+  },
+  {
+    id: "personal_details",
+    question: "Almost done! Tell us about yourself.",
+    description: "This helps us personalise your treatment quotes.",
+    type: "personal_details",
+    required: true,
   },
 ];
 

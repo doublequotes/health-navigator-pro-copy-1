@@ -11,7 +11,9 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "db:migrate": "node scripts/run-migrations.js"
+    "db:migrate": "node scripts/run-migrations.js",
+    "clean": "npm cache clean --force && npx rimraf node_modules/.vite dist",
+    "clean:all": "npm cache clean --force && npx rimraf node_modules package-lock.json dist && npm install"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

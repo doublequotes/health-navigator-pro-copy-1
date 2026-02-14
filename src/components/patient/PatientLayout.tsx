@@ -1,6 +1,6 @@
 import { Outlet, Navigate, Link } from "react-router-dom";
 import { useAuth } from "@/hooks/useAuth";
-import { Loader2, Home, FileText, Heart, LogOut } from "lucide-react";
+import { Loader2, Home, FileText, User, LogOut } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 export default function PatientLayout() {
@@ -37,6 +37,9 @@ export default function PatientLayout() {
             </Link>
             <Link to="/questionnaire" className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg hover:bg-secondary">
               <FileText className="h-4 w-4 inline mr-1" /> Get Quote
+            </Link>
+            <Link to="/patient/profile" className="px-3 py-2 text-sm text-muted-foreground hover:text-foreground rounded-lg hover:bg-secondary">
+              <User className="h-4 w-4 inline mr-1" /> Profile
             </Link>
           </nav>
         </div>

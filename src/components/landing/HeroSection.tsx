@@ -55,7 +55,7 @@ const HeroSection = () => {
             className="text-lg sm:text-xl text-primary-foreground/70 max-w-xl mb-10 leading-relaxed"
           >
             Compare transparent pricing from accredited hospitals worldwide.
-            Get a personalized treatment plan in minutes, not months.
+            Get a personalized treatment plan in hours, not months.
           </motion.p>
 
           <motion.div

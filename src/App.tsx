@@ -18,6 +18,7 @@ import HospitalLeads from "./pages/hospital/Leads";
 import HospitalPricing from "./pages/hospital/Pricing";
 import PatientLayout from "./components/patient/PatientLayout";
 import PatientDashboard from "./pages/patient/Dashboard";
+import ProfileEdit from "./pages/patient/ProfileEdit";
 import NotFound from "./pages/NotFound";
 import TreatmentDetail from "./pages/TreatmentDetail";
 import About from "./pages/About";
@@ -72,6 +73,7 @@ const App = () => (
             </Route>
             <Route path="/patient" element={<PatientLayout />}>
               <Route index element={<PatientDashboard />} />
+              <Route path="profile" element={<ProfileEdit />} />
             </Route>
             <Route path="*" element={<NotFound />} />
           </Routes>

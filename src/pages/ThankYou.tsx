@@ -37,11 +37,11 @@ const ThankYou = () => {
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary font-bold">2.</span>
-              You'll receive detailed pricing from 2-3 accredited options via email.
+              You'll receive detailed pricing from accredited hospitals and send it to you via email.
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary font-bold">3.</span>
-              A dedicated coordinator will help you compare and decide.
+              A dedicated coordinator will help you evaluate and decide.
             </li>
             <li className="flex items-start gap-2">
               <span className="text-primary font-bold">4.</span>

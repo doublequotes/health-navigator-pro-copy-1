@@ -249,61 +249,82 @@ export type Database = {
       }
       leads: {
         Row: {
+          allergies_conditions: string[] | null
           assigned_to: string | null
           budget: string | null
           created_at: string
+          date_of_birth: string | null
           destination_preference: string[] | null
           diagnosis_details: string | null
           email: string
+          full_name: string | null
           id: string
-          mobile?: string | null
+          mobile: string | null
+          passport_country: string | null
+          prescription_url: string | null
           previous_diagnosis: string | null
           questionnaire_answers: Json | null
           source: string | null
           status: string
+          translation_language: string | null
           treatment_category: string
           updated_at: string
           urgency: string | null
           utm_campaign: string | null
           utm_source: string | null
+          virtual_consultation: string | null
         }
         Insert: {
+          allergies_conditions?: string[] | null
           assigned_to?: string | null
           budget?: string | null
           created_at?: string
+          date_of_birth?: string | null
           destination_preference?: string[] | null
           diagnosis_details?: string | null
           email: string
+          full_name?: string | null
           id?: string
           mobile?: string | null
+          passport_country?: string | null
+          prescription_url?: string | null
           previous_diagnosis?: string | null
           questionnaire_answers?: Json | null
           source?: string | null
           status?: string
+          translation_language?: string | null
           treatment_category: string
           updated_at?: string
           urgency?: string | null
           utm_campaign?: string | null
           utm_source?: string | null
+          virtual_consultation?: string | null
         }
         Update: {
+          allergies_conditions?: string[] | null
           assigned_to?: string | null
           budget?: string | null
           created_at?: string
+          date_of_birth?: string | null
           destination_preference?: string[] | null
           diagnosis_details?: string | null
           email?: string
+          full_name?: string | null
           id?: string
           mobile?: string | null
+          passport_country?: string | null
+          prescription_url?: string | null
           previous_diagnosis?: string | null
           questionnaire_answers?: Json | null
           source?: string | null
           status?: string
+          translation_language?: string | null
           treatment_category?: string
           updated_at?: string
           urgency?: string | null
           utm_campaign?: string | null
           utm_source?: string | null
+          virtual_consultation?: string | null
         }
         Relationships: []
       }
